@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html lang="en">
+	<head>
+		<title>Primeiro exemplo geolocalização</title>
+		<meta name="viewport" content="initial-scale=1.0, user-scalable=no"/> 
+		<meta charset="utf-8"/>
+		<script type="text/javascript">
+		var options = { 
+			enableHighAccuracy: true, 
+			maximumAge: 1000, 
+			timeout: 45000
+		};
+		function successCallback(position) { 
+			alert("Sua posição foi encontrada"); 
+			document.getElementById("latitude").innerHTML = position.coords.latitude + "°";
+			document.getElementById("longitude").innerHTML = position.coords.longitude + "°";
+			document.getElementById("accuracy").innerHTML = position.coords.accuracy + " metros";
+			document.getElementById("time").innerHTML = Date(position.timestamp);
+			if (position.coords.altitude)
+				document.getElementById("altitude").innerHTML = position.coords.altitude + " metros";
+			if (position.coords.altitudeAccuracy)
+				document.getElementById("altitudeAccuracy").innerHTML = position.coords.altitudeAccuracy + " metros";
+			if (position.coords.heading)
+				document.getElementById("heading").innerHTML = position.coords.heading + "°";
+			if (position.coords.speed)
+				document.getElementById("speed").innerHTML = position.coords.speed + " m/s";
+		}
+		function errorCallback(error) {
+			alert('Erro ao buscar a sua localização!');
+		}
+		function buscaLocalizacao() {
+			if (window.navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options); 
+			} else {
+				alert('Seu navegador não tem suporte nativo a geolocalizacao.'); 
+			}
+		}
+		</script> 
+	</head>
+	<body>
+		<h1>Primeiro exemplo de Geolocalização</h1>
+		<h2>Informações geográficas de localização:</h2>
+		<ul>
+			<li>Latitude: <span id="latitude"></span></li>
+			<li>Longitude: <span id="longitude"></span></li>
+			<li>Precisão: <span id="accuracy"></span></li>
+			<li>Altitude (se encontrar): <span id="altitude"></span></li>
+			<li>Precisão da altitude (se encontrar): <span id="altitudeAccuracy"></span></li>
+			<li>Direção (se encontrar): <span id="heading"></span></li>
+			<li>Velocidade (se encontrar): <span id="speed"></span></li>
+			<li>Horário da posição: <span id="time"></span></li>
+		</ul>
+		<button onclick="buscaLocalizacao()">Procurar</button>
+	</body> 
+</html>
+
+
